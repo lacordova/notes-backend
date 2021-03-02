@@ -1,0 +1,33 @@
+GET http://localhost:3001/api/notes
+
+###
+GET http://localhost:3001
+
+###
+GET http://localhost:3001/api/notes/1
+
+###
+POST http://localhost:3001/api/notes
+content-type: application/json  
+
+{
+    "name": "sample",
+    "content": "example w/ content header"
+}
+
+###
+POST http://localhost:3001/api/notes
+content-type: application/json  
+
+{
+    "content": "hihihi"
+}
+
+###
+PUT http://localhost:3001/api/notes/6035ff52f52d3b563cf9cc6e
+Content-Type: application/json
+
+{
+    "content" : "esto es una nota actualizada",
+    "important": true
+}
