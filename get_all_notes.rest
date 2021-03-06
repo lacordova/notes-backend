@@ -20,7 +20,7 @@ POST http://localhost:3001/api/notes
 content-type: application/json  
 
 {
-    "content": "hihihi"
+    "content": "GET and POST are the most important methods of HTTP protocol"
 }
 
 ###

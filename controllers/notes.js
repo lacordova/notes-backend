@@ -1,68 +1,49 @@
 const notesRouter = require('express').Router()
 const Note = require('../models/note')
 
-const handleGetNotes = (req,res)=>{
-    Note.find({}).then(notes => {
-      res.json(notes)
-    })
+const handleGetNotes = async (req,res)=>{
+  const notes = await Note.find({})      
+  res.json(notes)
 }
 
-const handleNotesId = (req, res, next) => {
-    const id = req.params.id
-    Note.findById(id)
-      .then(note => {
-        if(note) {
-          res.json(note)
-        } else {
-          res.status(404).end()
-        }
-      })
-      .catch(err => next(err))
-  
+const handleNotesId = async (req, res) => {
+  const id = req.params.id
+  const note = await Note.findById(id)
+  if(note) {
+    res.json(note)
+  } else {
+    res.status(404).end()
+  }
 }
 
-const handlePostNotes = (req,res,next) => {
-    const body = req.body
+const handlePostNotes = async (req,res) => {
+  const body = req.body
     
-    const newNote = new Note({
-      content : body.content,
-      date : new Date(),
-      important : body.important || false
-    })
-  
-    newNote.save()
-      .then(savedNote => {
-      res.json(savedNote)
-    })
-      .catch(err => next(err))
+  const newNote = new Note({
+    content : body.content,
+    date : new Date(),
+    important : body.important || false
+  })
+
+  const savedNote = await newNote.save()
+  res.json(savedNote)
 }
 
-const handleDeleteNotes = (req,res,next) => {
-    const id = req.params.id
-    Note.findByIdAndRemove(id)
-      .then(()=> {
-        res.status(204).end()
-      })
-      .catch(err => next(err))
-  
-    
+const handleDeleteNotes = async (req,res) => {
+const id = req.params.id
+await Note.findByIdAndRemove(id)
+res.status(204).end()  
 }
 
-const handleUpdateNote = (req, res, next) => {
-    const id = req.params.id
-    const body = req.body
-  
-    const newNote = {
-      content: body.content,
-      important: body.important
-    }
-  
-    Note.findByIdAndUpdate(id, newNote, {new: true})
-      .then(updateNote => {
-        res.json(updateNote)
-      })
-      .catch(err=> next(err))
-  
+const handleUpdateNote = async (req, res) => {
+  const id = req.params.id
+  const body = req.body
+  const newNote = {
+    content: body.content,
+    important: body.important
+  }
+  const noteUpdate = await Note.findByIdAndUpdate(id, newNote, {new: true})
+  res.json(noteUpdate)
 }
 
 notesRouter.get('/',handleGetNotes)
