@@ -7,13 +7,10 @@ const api = supertest(app)
 const Note = require('../models/note')
 
 beforeEach(async () => {
-    await Note.deleteMany({})
-
-    let newObj = new Note(helper.initialNotes[0])
-    await newObj.save()
-
-    newObj = new Note(helper.initialNotes[1])
-    await newObj.save()
+  await Note.deleteMany({})
+  const noteObj = helper.initialNotes.map(note => new Note(note))
+  const promiseArray = noteObj.map(note => note.save())
+  await Promise.all(promiseArray)
 })
 
 test('notes are returned as json', async () => {
