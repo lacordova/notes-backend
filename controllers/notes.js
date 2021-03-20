@@ -30,9 +30,9 @@ const handlePostNotes = async (req,res) => {
 }
 
 const handleDeleteNotes = async (req,res) => {
-const id = req.params.id
-await Note.findByIdAndRemove(id)
-res.status(204).end()  
+  const id = req.params.id
+  await Note.findByIdAndRemove(id)
+  res.status(204).end()  
 }
 
 const handleUpdateNote = async (req, res) => {

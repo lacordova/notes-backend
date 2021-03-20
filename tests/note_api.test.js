@@ -16,9 +16,9 @@ beforeEach(async () => {
 describe('when there is initially some notes saved', () => {
   test('notes are returned as json', async () => {
     await api
-        .get('/api/notes')
-        .expect(200)
-        .expect('Content-Type', /application\/json/)
+      .get('/api/notes')
+      .expect(200)
+      .expect('Content-Type', /application\/json/)
   })
 
   test('all notes are returned', async () => {
@@ -123,5 +123,5 @@ describe('deletion of a note', () => {
 
 
 afterAll(() => {
-    mongoose.connection.close()
+  mongoose.connection.close()
 })
