@@ -33,12 +33,35 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:3001/api/users
+POST   http://localhost:3001/api/users
 Content-Type: application/json
 
 {
-    "notes": [],
-    "username": "root",
+    "username": "Lucas",
     "name": "Superuser",
+    "notes": [],
     "password": "supersecret"
 }
+
+###
+POST http://localhost:3001/api/notes
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ikx1Y2FzIiwiaWQiOiI2MDU2N2Y2YzFjOWRhZjRhZDczZjg3NDMiLCJpYXQiOjE2MTY0NjIwNTB9.ASQP-j4vRdOxqtWnfdSw0JrEFGjLc5uW0s3Fobz-Nzs
+
+{
+    "content":"User id of the note creator es at the start sent along the request",
+    "important": true,
+    "userId": "60567049436f9741583c5c92"
+}
+
+###
+POST http://localhost:3001/api/login
+Content-Type: application/json
+
+{
+    "username": "Lucas",
+    "password": "supersecret"
+}
+
+###
+GET http://localhost:3001/api/users

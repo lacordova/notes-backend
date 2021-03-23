@@ -54,8 +54,11 @@ describe('when there is initially one user in db', () => {
       .send(repeatedUser)
       .expect(400)
       .expect('Content-Type', /application\/json/)
+    
+    const userAtEnd = await helper.usersInDb()
         
-    expect(result.body.error).toContain("`username` to be unique")
+    expect(result.body.error).toContain('`username` to be unique')
+    expect(userAtEnd).toHaveLength(userAtStart.length)
   })
 })
 afterAll(() => {
